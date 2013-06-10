@@ -1,4 +1,4 @@
-package com.jclarity.training;
+package org.jclarity.training;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

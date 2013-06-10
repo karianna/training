@@ -1,4 +1,4 @@
-package com.jclarity.training;
+package org.jclarity.training;
 
 /**
  * Hello world!
