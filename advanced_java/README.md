@@ -15,12 +15,14 @@ Environment Variables
 
 Set the following environment variables.
 
-PATH separators are Operating System dependant, using semi-colons in this example.
+PATH separators are Operating System dependant, using colons in this example (Unix bash shell):
 
-M2_HOME=$MAVEN_INSTALL<br />
-JAVA_HOME=$JDK_INSTALL<br />
-ECLIPSE_HOME=$ECLIPSE_INSTALL<br />
-PATH=$JDK_INSTALL/bin;$M2_HOME/bin,$ECLIPSE_HOME/bin<br />
+M2_HOME=$MAVEN_INSTALL
+JAVA_HOME=$JDK_INSTALL
+ECLIPSE_HOME=$ECLIPSE_INSTALL
+PATH=$JDK_INSTALL/bin:$M2_HOME/bin:$ECLIPSE_HOME/bin
+
+export JAVA_HOME M2_HOME ECLIPSE_HOME PATH
 
 Confirm installations
 =====================
