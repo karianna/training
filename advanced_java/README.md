@@ -7,7 +7,7 @@ Install the following software (Versions are as of time of writing/updating this
 1. Latest Maven (3.0.5) - http://maven.apache.org/
 1. Latest Eclipse Juno for Java EE Developers (4.2.2 aka 4.2 SR2) - http://www.eclipse.org/downloads/ 
    1. Install Latest Spring STS and Maven (M2E) support if not already there
-   1. Install the two sample Spring applications from STS
+   1. Install the sample spring-hibernate-cf example application from STS
 1. Latest Jenkins WAR file (version changes weekly)- http://www.jenkins-ci.org
 
 Environment Variables
