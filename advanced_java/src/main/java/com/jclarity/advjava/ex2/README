@@ -1,0 +1,8 @@
+README
+------
+
+In this test, you need to step through the operations in the simplified
+hash map. Note in particular the action of the interplay between 
+hashCode() and equals() and where it is used in the SimpleHashMap code.
+
+You should add code to the UpdateTest JUnit test class
