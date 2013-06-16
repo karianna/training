@@ -23,6 +23,11 @@ public class ClassObjectExamples {
 	}
 	
 	private static class MyClassLoader extends ClassLoader {
+		// From here, have access to protected methods eg defineClass()
+		
+		public MyClassLoader() {
+			super(MyClassLoader.class.getClassLoader());
+		}
 		
 	}
 	
@@ -32,8 +37,8 @@ public class ClassObjectExamples {
 		testObj(2, "java.lang.Integer"); // autoboxing
 
 		ClassLoader cl = new MyClassLoader();
-		Class<?> clz = cl.loadClass("jpmc.training.slides.TWRExamples");
-		testObj(clz.newInstance(), "jpmc.training.slides.TWRExamples");
+		Class<?> clz = cl.loadClass("org.jclarity.training.TWRExamples");
+		testObj(clz.newInstance(), "org.jclarity.training.TWRExamples");
 	}
 
 }

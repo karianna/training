@@ -27,7 +27,7 @@ public class ReflectionExamples {
 	}
 	
 	private void run() throws ClassNotFoundException {
-		scanForTestMethods(Class.forName("test.count.SaferCountersTest"));
+		scanForTestMethods(Class.forName("org.jclarity.training.SaferCountersTest"));
 		scanForTestMethods(Class.forName("java.lang.Integer"));
 
 	}
