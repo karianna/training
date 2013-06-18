@@ -41,6 +41,8 @@ public class SaferCountersTest {
 
 	}
 
+	// Need to @Ignore this to start with so as not to confuse mvn
+	@Ignore 
 	@Test 
 	public void testArr() {
 		try {
