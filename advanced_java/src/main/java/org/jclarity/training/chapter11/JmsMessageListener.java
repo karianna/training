@@ -21,7 +21,7 @@ public class JmsMessageListener implements MessageListener {
     private AtomicInteger counter = null;
 
     /**
-     * Implementation of <code>MessageListener</code>.
+     * Example of an implementation of <code>MessageListener</code>.
      */
     @Override
     public void onMessage(Message message) {
@@ -32,7 +32,7 @@ public class JmsMessageListener implements MessageListener {
                 TextMessage tm = (TextMessage)message;
                 String msg = tm.getText();
                 
-                LOGGER.info("Processed message '{}'.  value={}", msg, messageCount);
+                LOGGER.info("Processed message '{}'. value={}", msg, messageCount);
                 
                 counter.incrementAndGet();
             }
@@ -40,5 +40,5 @@ public class JmsMessageListener implements MessageListener {
             LOGGER.error(e.getMessage(), e);
         }
     }
-    
+
 }

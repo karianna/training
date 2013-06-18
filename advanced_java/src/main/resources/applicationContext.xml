@@ -35,7 +35,7 @@
           depends-on="broker"
           p:targetConnectionFactory-ref="jmsFactory" />
 
-    <bean id="jmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
+    <bean id="template" class="org.springframework.jms.core.JmsTemplate"
           p:connectionFactory-ref="jmsProducerConnectionFactory"
           p:defaultDestination-ref="destination" />
 

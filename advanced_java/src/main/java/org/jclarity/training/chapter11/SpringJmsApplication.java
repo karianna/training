@@ -4,15 +4,18 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringJmsApplication {
-
+    
+    private final static String[] CONFIGURATION = new String []{"applicationContext.xml"};
+    
     /**
-     * @param args
+     * Main method to kick off a stand alone Spring application
      */
     public static void main(String[] args) {
-        try(AbstractApplicationContext context
-            = new ClassPathXmlApplicationContext(new String []{"applicationContext.xml"})) {
+        
+        try(AbstractApplicationContext context 
+                = new ClassPathXmlApplicationContext(CONFIGURATION)) {
 
-            // Add a shutdown hook for the above context... 
+            // Add a shutdown hook for the above context. 
             context.registerShutdownHook();
         }
     }

@@ -16,20 +16,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class JmsMessageProducer {
 
-    private static final Logger logger = LoggerFactory.getLogger(JmsMessageProducer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JmsMessageProducer.class);
 
     protected static final String MESSAGE_COUNT = "messageCount";
+    protected static final String MESSAGE_ID = "messageId";
 
     @Autowired
     private JmsTemplate template = null;
     private int messageCount = 100;
 
     /**
-     * Generates JMS messages
+     * Example of how to generate JMS text messages
      */
     @PostConstruct
     public void generateMessages() {
-        logger.error("foobar");
         for (int i = 0; i < messageCount; i++) {
             final int index = i;
             final String text = "Message number is " + i + ".";
@@ -40,7 +40,7 @@ public class JmsMessageProducer {
                     TextMessage message = session.createTextMessage(text);
                     message.setIntProperty(MESSAGE_COUNT, index);
                     
-                    logger.info("Sending message: " + text);
+                    LOGGER.info("Sending message: " + text);
                     
                     return message;
                 }
