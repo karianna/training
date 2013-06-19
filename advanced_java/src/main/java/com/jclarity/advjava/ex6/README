@@ -1,0 +1,15 @@
+README
+------
+In this exercise, you are provided with some classes with JavaBean style 
+properties.
+
+The exercise is to write unit tests to test 100% of the possible code paths. 
+
+In particular, you should test that calling a getter on a property after having 
+called the corresponding setter returns the value originally supplied.
+
+You should also write any other tests that are required.
+
+How would your approach differ if equals() and hashCode() were overridden?
+
+
