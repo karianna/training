@@ -13,19 +13,33 @@ public class UserEntityTest extends AbstractTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserEntityTest.class);
 
     @Test
-    public void testNewUser() {
+    public void persistedUserHasId() {
+        User user = new User();
+        user.setName("Ben");
+        entityManager.persist(user);
+        assertNotNull(user.getId());
+    }
+
+    @Test
+    public void committedUserHasId() {
+        User user = new User();
+        user.setName("Ben");
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+        assertNotNull(user.getId());
+    }
+
+    @Test
+    public void findNewUser() {
 
         User user = new User();
-        user.setName(Long.toString(new Date().getTime()));
+        user.setName("Ben");
         entityManager.persist(user);
         entityManager.getTransaction().commit();
 
-        // see that the ID of the user was set by Hibernate
-        LOGGER.info("user=" + user + ", user.id=" + user.getId());
         User foundUser = entityManager.find(User.class, user.getId());
 
-        // note that foundUser is the same instance as user and is a concrete class (not a proxy)
-        LOGGER.info("foundUser=" + foundUser);
+        // Note that foundUser is the same instance as user and is a concrete class (not a proxy)
         assertEquals(user.getName(), foundUser.getName());
     }
 }
