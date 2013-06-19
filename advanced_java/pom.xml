@@ -232,6 +232,7 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
+                    <!--
                     <executions>
                         <execution>
                             <goals>
@@ -242,6 +243,7 @@
                     <configuration>
                         <mainClass>org.jclarity.training.chapter11.SpringJmsApplication</mainClass>
                     </configuration>
+                    -->
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -336,10 +338,32 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
+
         <dependency>
-            <groupId>org.glassfish.main.extras</groupId>
-            <artifactId>glassfish-embedded-all</artifactId>
-            <version>3.1.2.2</version>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.2.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.2.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.2.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.jms</artifactId>
+            <version>3.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>bean-validator</artifactId>
+            <version>3.0-JBoss-4.0.2_03</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -375,6 +399,16 @@
             <version>1.7.5</version>
         </dependency>
         <dependency>
+             <groupId>ch.qos.logback</groupId>
+             <artifactId>logback-classic</artifactId>
+             <version>1.0.13</version>
+         </dependency>
+         <dependency>
+             <groupId>ch.qos.logback</groupId>
+             <artifactId>logback-core</artifactId>
+             <version>1.0.13</version>
+         </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>3.2.3.RELEASE</version>
@@ -393,5 +427,12 @@
         <url>https://github.com/jClarity/training</url>
         <tag>HEAD</tag>
     </scm>
+
+    <repositories>
+        <repository>
+            <id>fusesource</id>
+            <url>http://repo.fusesource.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
 </project>
