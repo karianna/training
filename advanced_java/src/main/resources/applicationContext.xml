@@ -23,7 +23,7 @@
         </amq:transportConnectors>
     </amq:broker>
 
-    <!--  ActiveMQ Destination  -->
+    <!-- ActiveMQ Destination  -->
     <amq:queue id="destination" physicalName="org.jclarity.training.jms.test" />
 
     <!-- JMS ConnectionFactory to use, configuring the embedded broker using XML -->
@@ -35,7 +35,7 @@
           depends-on="broker"
           p:targetConnectionFactory-ref="jmsFactory" />
 
-    <bean id="template" class="org.springframework.jms.core.JmsTemplate"
+    <bean id="jmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
           p:connectionFactory-ref="jmsProducerConnectionFactory"
           p:defaultDestination-ref="destination" />
 

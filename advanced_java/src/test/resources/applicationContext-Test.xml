@@ -23,8 +23,8 @@
         </amq:transportConnectors>
     </amq:broker>
 
-    <!--  ActiveMQ Destination  -->
-    <amq:queue id="destination" physicalName="org.springbyexample.jms.test" />
+    <!-- ActiveMQ Destination  -->
+    <amq:queue id="destination" physicalName="org.jclarity.training.jms.test" />
 
     <!-- JMS ConnectionFactory to use, configuring the embedded broker using XML -->
     <amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost" />
@@ -48,7 +48,7 @@
     <jms:listener-container container-type="default" 
                             connection-factory="jmsConsumerConnectionFactory"
                             acknowledge="auto">
-        <jms:listener destination="org.springbyexample.jms.test" ref="jmsMessageListener" />
+        <jms:listener destination="org.jclarity.training.jms.test" ref="jmsMessageListener" />
     </jms:listener-container>
 
     <bean id="jmsMessageListener" class="org.jclarity.training.chapter11.JmsMessageListener" />
