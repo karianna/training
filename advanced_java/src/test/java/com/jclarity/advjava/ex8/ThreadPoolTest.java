@@ -29,14 +29,11 @@ public class ThreadPoolTest {
     // HINT HINT HINT There may well be bugs in this code! Be careful... 
     @Before
     public void setup() {
-        lbq = new LinkedBlockingQueue<>();
         mgr = new ThreadPoolManager(lbq, 2);
     }
     
     @Test
-    public void testSimpleExecution() throws InterruptedException {
-//    	if (true) throw new NullPointerException();
-    	
+    public void testSimpleExecution() throws InterruptedException {    	
         final AtomicInteger aInt = new AtomicInteger(0);
         final QueueReaderTask msgReader = new QueueReaderTask(100) {
             @Override
@@ -45,14 +42,10 @@ public class ThreadPoolTest {
             }
         };
         // FIXME TEST GOES HERE
-        // How do we get the task into the processing pipeline?
-        mgr.run(msgReader);
-        lbq.add(new WorkUnit<String>("test1"));
-        Thread.sleep(1000);
         
         // What does our test assertion look like??
         // Something to do with the value of aInt after the test has run????
-        assertEquals(1, aInt.get()); 
+        assertEquals(1, 0); 
     }
     
     @Test
