@@ -1,0 +1,8 @@
+README
+------
+The aim of this exercise is to experiment with the STPE and tasks
+
+You should write some tests to see how STPE behaves with various sizes of
+threadpool.
+
+
