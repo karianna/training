@@ -24,28 +24,31 @@ import org.junit.Test;
 public class ThreadPoolTest {
     
     private ThreadPoolManager mgr = null;
-	private BlockingQueue<WorkUnit<String>> lbq;
+
     
     // HINT HINT HINT There may well be bugs in this code! Be careful... 
     @Before
     public void setup() {
-        mgr = new ThreadPoolManager(lbq, 2);
+    	BlockingQueue<WorkUnit<String>> lbq = new LinkedBlockingQueue<>();
+    	mgr = new ThreadPoolManager(lbq, 2);
     }
     
     @Test
-    public void testSimpleExecution() throws InterruptedException {    	
+    public void testSimpleExecution() throws InterruptedException {
+
         final AtomicInteger aInt = new AtomicInteger(0);
+
         final QueueReaderTask msgReader = new QueueReaderTask(100) {
             @Override
             public void doAction(String msg_) {
-                if (msg_ != null) aInt.incrementAndGet();
+            	// What should we do here?
             }
         };
         // FIXME TEST GOES HERE
-        
+        // How do we get the task into the processing pipeline?
+
         // What does our test assertion look like??
         // Something to do with the value of aInt after the test has run????
-        assertEquals(1, 0); 
     }
     
     @Test
