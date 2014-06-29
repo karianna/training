@@ -26,145 +26,143 @@ import static java.nio.file.StandardWatchEventKinds.*;
 
 public class FilesExample {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		FilesExample fx = new FilesExample();
-		fx.run();
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        FilesExample fx = new FilesExample();
+        fx.run();
+    }
 
-	private boolean shutdown = false;
-	
-	private void watch() {
-		try {
-			WatchService watcher = FileSystems.getDefault().newWatchService();
+    private boolean shutdown = false;
 
-			Path dir = FileSystems.getDefault().getPath("/home/ben");
-			WatchKey key = dir.register(watcher, ENTRY_MODIFY);               
+    private void watch() {
+        try {
+            WatchService watcher = FileSystems.getDefault().newWatchService();
 
-			while(!shutdown) {
-				key = watcher.take();
-				for (WatchEvent<?> event: key.pollEvents()) {
-					if (event.kind() == ENTRY_MODIFY) {
-						System.out.println("Home dir changed!");                    
-					}
-				}
-				key.reset();
-			}
-		} catch (IOException | InterruptedException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	private void asynchFuture() {
-		try {
-			Path file = Paths.get("/home/ben/foobar.txt");
+            Path dir = FileSystems.getDefault().getPath("/home/ben");
+            WatchKey key = dir.register(watcher, ENTRY_MODIFY);
 
-			AsynchronousFileChannel channel = AsynchronousFileChannel.open(file);
+            while (!shutdown) {
+                key = watcher.take();
+                for (WatchEvent<?> event : key.pollEvents()) {
+                    if (event.kind() == ENTRY_MODIFY) {
+                        System.out.println("Home dir changed!");
+                    }
+                }
+                key.reset();
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-			ByteBuffer buffer = ByteBuffer.allocate(100_000);
-			Future<Integer> result = channel.read(buffer, 0);
+    private void asynchFuture() {
+        try {
+            Path file = Paths.get("/home/ben/foobar.txt");
 
-			while(!result.isDone()) {
-				// Do some work....
-			}
+            AsynchronousFileChannel channel = AsynchronousFileChannel.open(file);
 
-			Integer bytesRead = result.get();
-			System.out.println("Bytes read [" + bytesRead + "]");
-		} catch (IOException | ExecutionException | InterruptedException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	private void channel() {
-		FileInputStream fis = getSomeStream();
-		boolean fileOK = true;
-		
-		try (FileChannel fchan = fis.getChannel()) {
-			ByteBuffer buffy = ByteBuffer.allocateDirect(16 * 1024 * 1024);
-			while(fchan.read(buffy) != -1 || buffy.position() > 0 || fileOK) {
-				fileOK = computeChecksum(buffy);
-				buffy.compact();
-			}
-		} catch (IOException e) {
-			System.out.println("Exception in I/O");
-		} 
-		
-		
-	}
-	
-	private boolean computeChecksum(ByteBuffer buffy) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+            ByteBuffer buffer = ByteBuffer.allocate(100_000);
+            Future<Integer> result = channel.read(buffer, 0);
 
-	private FileInputStream getSomeStream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            while (!result.isDone()) {
+                // Do some work....
+            }
 
-	private void buffer() {
-		ByteBuffer b = ByteBuffer.allocate(4096); 
-		ByteBuffer b2 = ByteBuffer.allocateDirect(65536);
+            Integer bytesRead = result.get();
+            System.out.println("Bytes read [" + bytesRead + "]");
+        } catch (IOException | ExecutionException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-		byte[] data = {1, 2, 3}; 
-		ByteBuffer b3 = ByteBuffer.wrap(data); 
+    private void channel() {
+        FileInputStream fis = getSomeStream();
+        boolean fileOK = true;
 
-		b.put(data); 
-		b.put((byte)42); 
-		b.put(0, (byte)9);
-		
-		b.order(ByteOrder.BIG_ENDIAN);
-		b.putChar('x');
-		b.putInt(0xcafebabe);
+        try (FileChannel fchan = fis.getChannel()) {
+            ByteBuffer buffy = ByteBuffer.allocateDirect(16 * 1024 * 1024);
+            while (fchan.read(buffy) != -1 || buffy.position() > 0 || fileOK) {
+                fileOK = computeChecksum(buffy);
+                buffy.compact();
+            }
+        } catch (IOException e) {
+            System.out.println("Exception in I/O");
+        }
 
-		int capacity = b.capacity(); 
-		int position = b.position(); 
-		
-		// A buffer's limit specifies how many bytes of the buffer can be used.
-		// When writing into a buffer, this should be the capacity. When reading data
-		// from a buffer, it should be the number of bytes that were previously
-		// written.
-		int limit = b.limit(); // How many should be used?
-		int remaining = b.remaining(); // How many left? Return limit-position.
-		boolean more = b.hasRemaining(); // Test if there is still room in the buffer
-	}
-	
-	private void run() {
-		File homedir = new File(System.getProperty("user.home"));
-		File f = new File(homedir, ".configfile");
-		
-		if (f.exists() && f.isFile() && f.canRead()) {
-			File configdir = new File(homedir, ".configdir");
-			configdir.mkdir();
-			f.renameTo(new File(configdir, ".config")); 
-		}
+    }
 
-		String[] allfiles = homedir.list();
-		
-		
-		String filename = System.getProperty("user.home") + File.separator + ".cshrc";
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(filename));
-			String line;
-			
-			while((line = in.readLine()) != null) {
-				System.out.println(line); 
-			}
-			in.close(); 
-		} catch (IOException e) {
-			// Handle FileNotFoundException, etc. here
-		}
+    private boolean computeChecksum(ByteBuffer buffy) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-		
-		Path logFile = Paths.get("/tmp/app.log");
-		try (BufferedWriter writer = 
-				Files.newBufferedWriter(logFile, StandardCharsets.UTF_8, StandardOpenOption.WRITE)) {
-			writer.write("Hello World!");
-			// ...
-		} catch (IOException e) {
-			// ...
-		}
-	}
+    private FileInputStream getSomeStream() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    private void buffer() {
+        ByteBuffer b = ByteBuffer.allocate(4096);
+        ByteBuffer b2 = ByteBuffer.allocateDirect(65536);
+
+        byte[] data = { 1, 2, 3 };
+        ByteBuffer b3 = ByteBuffer.wrap(data);
+
+        b.put(data);
+        b.put((byte) 42);
+        b.put(0, (byte) 9);
+
+        b.order(ByteOrder.BIG_ENDIAN);
+        b.putChar('x');
+        b.putInt(0xcafebabe);
+
+        int capacity = b.capacity();
+        int position = b.position();
+
+        // A buffer's limit specifies how many bytes of the buffer can be used.
+        // When writing into a buffer, this should be the capacity. When reading
+        // data
+        // from a buffer, it should be the number of bytes that were previously
+        // written.
+        int limit = b.limit(); // How many should be used?
+        int remaining = b.remaining(); // How many left? Return limit-position.
+        boolean more = b.hasRemaining(); // Test if there is still room in the
+                                         // buffer
+    }
+
+    private void run() {
+        File homedir = new File(System.getProperty("user.home"));
+        File f = new File(homedir, ".configfile");
+
+        if (f.exists() && f.isFile() && f.canRead()) {
+            File configdir = new File(homedir, ".configdir");
+            configdir.mkdir();
+            f.renameTo(new File(configdir, ".config"));
+        }
+
+        String[] allfiles = homedir.list();
+
+        String filename = System.getProperty("user.home") + File.separator + ".cshrc";
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(filename));
+            String line;
+
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+        } catch (IOException e) {
+            // Handle FileNotFoundException, etc. here
+        }
+
+        Path logFile = Paths.get("/tmp/app.log");
+        try (BufferedWriter writer = Files.newBufferedWriter(logFile, StandardCharsets.UTF_8, StandardOpenOption.WRITE)) {
+            writer.write("Hello World!");
+            // ...
+        } catch (IOException e) {
+            // ...
+        }
+    }
 }
